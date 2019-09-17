@@ -4,3 +4,17 @@ install: true
 
 jdk:
   - openjdk8
+  
+cache:
+  directories:
+    - $HOME/.m2
+    - $HOME/.sonar/cache
+    
+addons:
+  sonarcloud:
+    organization: "bfdxt3d5zt3ou96q36zmmto-ypaz15wdvuuwwxqkyqbe4ot7i46qnw8vtlhkmsgp1d3xqtco52bluirmjvunjf-75ldqci7znb6eftft20sz0rz4jiwaevlwfu2n1ficojfe2ac99wl4iojb3zjbbblf-x4-ntxqdhma0kt6rjnaai-tjrmnnpg00tqdkg3vk4gp08sgpxyz092egwx7w7g-gqw0iaqnc6o6zpw4t-3o8bi0c9-b0og3-mrr2g2"
+    token:
+      secure: $SONAR_TOKEN
+      
+script:
+  - mvn clean verify sonar:sonar -Pcoverage
