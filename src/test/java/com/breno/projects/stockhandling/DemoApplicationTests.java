@@ -1,4 +1,4 @@
-package com.example.stockhandling;
+package com.breno.projects.stockhandling;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
