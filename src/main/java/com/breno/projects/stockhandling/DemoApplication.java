@@ -1,4 +1,4 @@
-package com.example.stockhandling;
+package com.breno.projects.stockhandling;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
