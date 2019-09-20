@@ -36,9 +36,7 @@ class GetStockServiceTests {
 		
 		when(loadStockPort.loadStock(productId)).thenThrow(EntityNotFoundException.class);
 		
-		getStockService.getStock(productId);
-		
-		assertThrows(EntityNotFoundException.class, () -> {});
+		assertThrows(EntityNotFoundException.class, () -> getStockService.getStock(productId));
 	}
 	
 	@Test
@@ -72,8 +70,6 @@ class GetStockServiceTests {
 	}
 
 	private void checkExceptionForProductIdValue(String productId) {
-		assertThrows(RuntimeException.class, () -> {
-			getStockService.getStock("");
-		});
+		assertThrows(RuntimeException.class, () -> getStockService.getStock(""));
 	}
 }
