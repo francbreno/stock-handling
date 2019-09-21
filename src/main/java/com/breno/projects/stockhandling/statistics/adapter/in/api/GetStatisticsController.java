@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/statistics")
 @RequiredArgsConstructor
 public class GetStatisticsController {
-	private final LoadStatisticsQuery LoadStatisticsQuery;
+	private final LoadStatisticsQuery loadStatisticsQuery;
 
 	@GetMapping
 	public ResponseEntity<GetStatisticsResponse> getStatistics(
@@ -31,7 +31,7 @@ public class GetStatisticsController {
 		StatisticsRangeFilterType rangeFilter = StatisticsRangeFilterType.of(range);
 		
 		TopStatistics topStatistics =
-			LoadStatisticsQuery.loadStatistics(rangeFilter, requestTimestamp);
+			loadStatisticsQuery.loadStatistics(rangeFilter, requestTimestamp);
 			
 		GetStatisticsResponse getStatisticsResponse =
 				mapToResponse(range, requestTimestamp, topStatistics);
@@ -43,13 +43,11 @@ public class GetStatisticsController {
 	private GetStatisticsResponse mapToResponse(
 			String range, Instant requestTimestamp, TopStatistics topStatistics) {
 
-		GetStatisticsResponse getStatisticsResponse =
-			GetStatisticsResponse.builder()
+		return GetStatisticsResponse.builder()
 				.range(range)
 				.requestTimestamp(requestTimestamp)
 				.topAvailableProducts(topStatistics.getTopAvailableProducts())
 				.topSellingProducts(topStatistics.getTopSellingProducts())
 				.build();
-		return getStatisticsResponse;
 	}
 }

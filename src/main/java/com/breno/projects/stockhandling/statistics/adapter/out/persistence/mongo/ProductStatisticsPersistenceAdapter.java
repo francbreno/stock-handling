@@ -49,12 +49,10 @@ public class ProductStatisticsPersistenceAdapter
 				.quantity(stockData.getQuantity())
 				.build();
 		
-		ProductStatisticsDocument productStatistics =
-			ProductStatisticsDocument.builder()
+		return ProductStatisticsDocument.builder()
 				.id(stockData.getProductId())
 				.stockStatistics(productStockStats)
 				.build();
-		return productStatistics;
 	}
 	
 	private ProductStockStatisticsData mapDocumentToProductStockStatisticsData(

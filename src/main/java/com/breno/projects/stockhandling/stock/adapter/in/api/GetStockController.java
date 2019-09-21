@@ -47,13 +47,11 @@ public class GetStockController {
 				.quantity(stock.getQuantity())
 				.build();
 
-		GetStockResponse getStockResponse = 
-				GetStockResponse.builder()
-					.productId(stock.getProductId())
-					.requestTimestamp(requestTimestamp)
-					.stock(stockDto)
-					.build();
-
-		return getStockResponse;
+ 
+		return GetStockResponse.builder()
+				.productId(stock.getProductId())
+				.requestTimestamp(requestTimestamp)
+				.stock(stockDto)
+				.build();
 	}
 }

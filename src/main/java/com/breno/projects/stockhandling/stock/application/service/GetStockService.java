@@ -1,7 +1,8 @@
 package com.breno.projects.stockhandling.stock.application.service;
 
+import java.util.Objects;
+
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import com.breno.projects.stockhandling.stock.application.port.in.GetStockQuery;
 import com.breno.projects.stockhandling.stock.application.port.out.LoadStockPort;
@@ -25,10 +26,7 @@ public class GetStockService implements GetStockQuery {
 
 	@Override
 	public Stock getStock(String productId) {
-		if (StringUtils.isEmpty(productId)) {
-			throw new RuntimeException();
-		}
-		
+		Objects.requireNonNull(productId);
 		return loadStockPort.loadStock(productId);
 	}
 }

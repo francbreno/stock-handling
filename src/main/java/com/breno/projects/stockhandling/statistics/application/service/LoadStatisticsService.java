@@ -59,30 +59,29 @@ public class LoadStatisticsService implements LoadStatisticsQuery {
 
 	private List<ProductStockStatisticsData> filterStatistics(List<ProductStockStatisticsData> statistics,
 			Predicate<? super ProductStockStatisticsData> rangeFilter) {
-		List<ProductStockStatisticsData> topStatistics =
-			statistics
+
+		return statistics
 				.stream()
 				.filter(rangeFilter)
 				.collect(toList());
-		return topStatistics;
 	}
 
 	private List<ProductSellsDto> extractTopSellingProducts(List<ProductStockStatisticsData> topStatistics) {
 		return topStatistics
-			.stream()
-			.sorted(comparing(ProductStockStatisticsData::getTotalSales).reversed())
-			.limit(3)
-			.map(this::mapToProductSellsDto)
-			.collect(toList());
+				.stream()
+				.sorted(comparing(ProductStockStatisticsData::getTotalSales).reversed())
+				.limit(3)
+				.map(this::mapToProductSellsDto)
+				.collect(toList());
 	}
 
 	private List<AvailableProductDto> extractTopAvailableProducts(List<ProductStockStatisticsData> topStatistics) {
 		return topStatistics
-			.stream()
-			.sorted(comparing(ProductStockStatisticsData::getQuantity).reversed())
-			.limit(3)
-			.map(this::mapToAvailableProductDto)
-			.collect(toList());
+				.stream()
+				.sorted(comparing(ProductStockStatisticsData::getQuantity).reversed())
+				.limit(3)
+				.map(this::mapToAvailableProductDto)
+				.collect(toList());
 	}
 
 	private Predicate<? super ProductStockStatisticsData> statsTimestampIsInTheLastMonth() {

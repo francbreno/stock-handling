@@ -1,9 +1,12 @@
 package com.breno.projects.stockhandling.stock.adapter.in.api.exception;
 
+import java.time.Instant;
+
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.breno.projects.stockhandling.stock.model.exception.FutureStockTimestampException;
 import com.breno.projects.stockhandling.stock.model.exception.InvalidStockQuantityException;
+
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * This class is responsible for handling all exceptions thrown
@@ -28,10 +34,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code NOT_FOUND}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler({EntityNotFoundException.class})
-	public void handle(EntityNotFoundException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(EntityNotFoundException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link IfMatchETagNotPresent IfMatchETagNotPresent}
@@ -39,10 +52,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code FORBIDDEN}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.FORBIDDEN)
 	@ExceptionHandler({IfMatchETagNotPresent.class})
-	public void handle(IfMatchETagNotPresent e) {}
+	public ResponseEntity<ErrorResponseBody> handle(IfMatchETagNotPresent e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.FORBIDDEN)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link InvalidIfMatchEtagException InvalidIfMatchEtagException}
@@ -54,10 +74,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code NO_CONTENT}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ExceptionHandler({InvalidIfMatchEtagException.class})
-	public void handle(InvalidIfMatchEtagException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(InvalidIfMatchEtagException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.NO_CONTENT)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link ConstraintViolationException ConstraintViolationException}
@@ -71,10 +98,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code BAD_REQUEST}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({ConstraintViolationException.class})
-	public void handle(ConstraintViolationException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(ConstraintViolationException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link HttpMessageNotReadableException HttpMessageNotReadableException}
@@ -82,10 +116,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code BAD_REQUEST}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({HttpMessageNotReadableException.class})
-	public void handle(HttpMessageNotReadableException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(HttpMessageNotReadableException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link InvalidStockQuantityException InvalidStockQuantityException}
@@ -93,10 +134,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code BAD_REQUEST}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({InvalidStockQuantityException.class})
-	public void handle(InvalidStockQuantityException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(InvalidStockQuantityException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(body);
+	}
 	
 	/**
 	 * Exceptions of type @{link FutureStockTimestampException FutureStockTimestampException}
@@ -104,10 +152,17 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status {@code BAD_REQUEST}
+	 * 			and a body with the instant the error happened and an error message
 	 */
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler({FutureStockTimestampException.class})
-	public void handle(FutureStockTimestampException e) {}
+	public ResponseEntity<ErrorResponseBody> handle(FutureStockTimestampException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), e.getMessage());
+		
+		return ResponseEntity
+				.status(HttpStatus.BAD_REQUEST)
+				.body(body);
+	}
 	
 	/**
 	 * Makes every @{link RuntimeException RuntimeException} to
@@ -115,8 +170,23 @@ public class StockApiExceptionHandler {
 	 * 
 	 * @param 	e
 	 * 			The exception that was thrown.
+	 * @return	a {@link ResponseEntity ResponseEntity} with status
+	 * 			{@code INTERNAL_SERVER_ERROR} and a body with the instant
+	 * 			the error happened and an error message
 	 */
-//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//	@ExceptionHandler({RuntimeException.class})
-//	public void handle(RuntimeException e) {}
+	@ExceptionHandler({RuntimeException.class})
+	public ResponseEntity<ErrorResponseBody> handle(RuntimeException e) {
+		ErrorResponseBody body = new ErrorResponseBody(Instant.now(), "Something went wrong!");
+		
+		return ResponseEntity
+				.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.body(body);
+	}
+	
+	@RequiredArgsConstructor
+	@Getter
+	static class ErrorResponseBody {
+		private final Instant timestamp;
+		private final String message;
+	}
 }

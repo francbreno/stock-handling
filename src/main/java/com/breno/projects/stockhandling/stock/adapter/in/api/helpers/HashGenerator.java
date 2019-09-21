@@ -63,7 +63,7 @@ public class HashGenerator {
 	 * convert from byte to String.
 	 */
 	private IntFunction<? extends String> createByteArrayToStringMapper(byte[] bytes) {
-		// TODO - explain the bit 'and'
+		// perform a sign extension setting the high bits to zero
 		return i -> String.format("%02X", 0xFF & bytes[i]);
 	}
 }
