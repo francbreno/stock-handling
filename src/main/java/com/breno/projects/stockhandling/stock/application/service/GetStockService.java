@@ -27,6 +27,11 @@ public class GetStockService implements GetStockQuery {
 	@Override
 	public Stock getStock(String productId) {
 		Objects.requireNonNull(productId);
+		
+		if(productId.length() == 0) {
+			throw new IllegalArgumentException("productId cannot be empty");
+		}
+		
 		return loadStockPort.loadStock(productId);
 	}
 }

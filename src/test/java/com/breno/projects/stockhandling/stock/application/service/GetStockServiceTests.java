@@ -61,15 +61,11 @@ class GetStockServiceTests {
 	
 	@Test
 	void shouldThrowExceptionWhenProductIdIsNull() {
-		checkExceptionForProductIdValue(null);
+		assertThrows(NullPointerException.class, () -> getStockService.getStock(null));
 	}
 
 	@Test
 	void shouldThrowExceptionWhenProductIdIsEmpty() {
-		checkExceptionForProductIdValue("");
-	}
-
-	private void checkExceptionForProductIdValue(String productId) {
-		assertThrows(RuntimeException.class, () -> getStockService.getStock(""));
+		assertThrows(IllegalArgumentException.class, () -> getStockService.getStock(""));
 	}
 }
