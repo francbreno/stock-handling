@@ -64,6 +64,7 @@ public class StockPersistenceAdapter implements LoadStockPort, UpdateStockStateP
 				.productId(stockEntity.getProductId())
 				.timestamp(stockEntity.getTimestamp())
 				.quantity(stockEntity.getQuantity())
+				.version(stockEntity.getVersion())
 				.build();
 	}
 

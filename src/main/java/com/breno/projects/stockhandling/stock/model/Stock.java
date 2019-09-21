@@ -1,6 +1,7 @@
 package com.breno.projects.stockhandling.stock.model;
 
 import java.time.Instant;
+import java.util.Objects;
 
 import com.breno.projects.stockhandling.stock.model.exception.FutureStockTimestampException;
 import com.breno.projects.stockhandling.stock.model.exception.InvalidStockQuantityException;
@@ -28,7 +29,7 @@ public class Stock {
 	private final String stockId;
 	private final String productId;
 	private Integer quantity;
-	private final Instant timestamp;
+	private Instant timestamp;
 	private final Integer version;
 	
 	public static Stock withoutVersion(
@@ -57,6 +58,10 @@ public class Stock {
 	 * 			The timestamp of the update. Must not be in future.
 	 */
 	public void updateStock(Integer quantity, Instant timestamp) {
+		// If any of the arguments are null at this point, something is really wrong some steps before
+		Objects.requireNonNull(quantity, "quantity cannot be null");
+		Objects.requireNonNull(timestamp, "timestamp cannot be null");
+		
 		if (quantity < 0) {
 			throw new InvalidStockQuantityException("Can't update stock with quantity less than zero");
 		}
@@ -66,5 +71,6 @@ public class Stock {
 		}
 		
 		this.quantity = quantity;
+		this.timestamp = timestamp;
 	}
 }

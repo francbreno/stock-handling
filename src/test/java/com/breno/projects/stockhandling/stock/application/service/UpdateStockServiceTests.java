@@ -18,6 +18,7 @@ import org.mockito.MockitoAnnotations;
 
 import com.breno.projects.stockhandling.stock.application.port.in.UpdateStockCommand;
 import com.breno.projects.stockhandling.stock.application.port.out.LoadStockPort;
+import com.breno.projects.stockhandling.stock.application.port.out.NotifyStatisticsMediatorPort;
 import com.breno.projects.stockhandling.stock.application.port.out.UpdateStockStatePort;
 import com.breno.projects.stockhandling.stock.model.Stock;
 import com.breno.projects.stockhandling.stock.model.exception.FutureStockTimestampException;
@@ -30,6 +31,9 @@ class UpdateStockServiceTests {
 	
 	@Mock
 	UpdateStockStatePort updateStockStatePort;
+	
+	@Mock
+	NotifyStatisticsMediatorPort notifyStatisticsMediatorPort;
 	
 	@InjectMocks
 	UpdateStockService updateStockService;
@@ -65,6 +69,7 @@ class UpdateStockServiceTests {
 		updateStockService.updateStock(updateStockCommand);
 		
 		Mockito.verify(updateStockStatePort).update(Mockito.any(Stock.class));
+		Mockito.verify(notifyStatisticsMediatorPort).notify(Mockito.any(Stock.class));
 	}
 
 	@Test
