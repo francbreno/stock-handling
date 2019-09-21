@@ -48,7 +48,7 @@ public class HashGenerator {
 	 * @return	A {@link String String} representing the hash value
 	 */
 	public String generate(String stringToHash) {
-		Objects.nonNull(stringToHash);
+		Objects.requireNonNull(stringToHash);
 
 		byte[] hashBytes = digest.digest(stringToHash.getBytes());
 
