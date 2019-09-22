@@ -53,7 +53,7 @@ public class DataLoader implements CommandLineRunner {
 								.timestamp(timestamp)
 								.build();
 					})
-					.forEach(e -> updateStockUseCase.updateStock(e));
+					.forEach(updateStockUseCase::updateStock);
 			});
 	}
 	

@@ -56,7 +56,7 @@ public class ProductStatisticsPersistenceAdapter implements UpdateStockStatistic
 		return productStatisticsDocument.map(p -> {
 			List<StockEvent> stockEvents =
 				p.getStockUpdateEvents().stream()
-					.map(e -> mapStockUpdateEventToStockEvent(e))
+					.map(this::mapStockUpdateEventToStockEvent)
 					.collect(toList());
 			
 			return ProductStatistics.builder()
@@ -79,7 +79,7 @@ public class ProductStatisticsPersistenceAdapter implements UpdateStockStatistic
 		
 		List<StockUpdateEvent> stockUpdateEvent =
 				productStatistics.getStockEvents().stream()
-					.map(e -> mapStockEventToStockUpdateEvent(e))
+					.map(this::mapStockEventToStockUpdateEvent)
 					.collect(toList());
 		
 		return ProductStatisticsDocument.builder()
@@ -102,7 +102,7 @@ public class ProductStatisticsPersistenceAdapter implements UpdateStockStatistic
 		List<StockEvent> stockEvents =
 				productStatistics.getStockUpdateEvents()
 					.stream()
-					.map(e -> mapStockUpdateEventToStockEvent(e))
+					.map(this::mapStockUpdateEventToStockEvent)
 					.collect(toList());
 			
 		return ProductStatistics.builder()

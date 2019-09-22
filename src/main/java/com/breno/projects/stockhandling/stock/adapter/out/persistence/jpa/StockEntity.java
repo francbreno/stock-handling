@@ -17,6 +17,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Represents a JPA Entity related to a Stock.
+ * 
+ * @author breno
+ *
+ */
 @Entity
 @Table(name = "stock")
 @NoArgsConstructor(force = true)

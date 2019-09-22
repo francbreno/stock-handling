@@ -41,24 +41,20 @@ public class UpdateStockStatisticsService implements UpdateStockStatisticsUseCas
 	}
 
 	private ProductStatistics createNewProductStatistics(String productId) {
-		ProductStatistics productStatistics = ProductStatistics.builder()
+		return ProductStatistics.builder()
 				.productId(productId)
 				.stockEvents(new ArrayList<>())
 				.build();
-
-		return productStatistics;
 	}
 
 	private StockEvent mapUpdateStockStatisticsCommandToStockEvent(
 			UpdateStockStatisticsCommand updateStockStatisticsCommand) {
 
-		StockEvent stockEvent = StockEvent.builder()
+		return StockEvent.builder()
 				.stockId(updateStockStatisticsCommand.getStockId())
 				.timestamp(updateStockStatisticsCommand.getTimestamp())
 				.quantity(updateStockStatisticsCommand.getQuantity())
 				.build();
-
-		return stockEvent;
 	}
 	
 	/*

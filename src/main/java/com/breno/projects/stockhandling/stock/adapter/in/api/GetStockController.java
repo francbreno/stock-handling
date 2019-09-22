@@ -16,6 +16,15 @@ import com.breno.projects.stockhandling.stock.model.Stock;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * A controller responsible for obtaining a stock.
+ * 
+ * <p>Concurrent request against this endpoint are handled
+ * using ETAGS to avoid the <em>Lost Update</em> problem to happen. 
+ * 
+ * @author breno
+ *
+ */
 @RestController
 @RequestMapping("/stock")
 @RequiredArgsConstructor

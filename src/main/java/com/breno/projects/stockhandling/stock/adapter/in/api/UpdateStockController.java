@@ -21,6 +21,16 @@ import com.breno.projects.stockhandling.stock.model.Stock;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This controller is responsible for updating a product stock
+ * data.
+ * 
+ * <p>An ETAG is returned to help controlling concurrent requests
+ * against the update endpoint.
+ * 
+ * @author breno
+ *
+ */
 @RestController
 @RequestMapping("/stock/update")
 @RequiredArgsConstructor
