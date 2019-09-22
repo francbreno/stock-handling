@@ -26,7 +26,7 @@ public final class DateUtil {
 	 * @return	a {@link LocalDate LocalDate}
 	 */
 	public static LocalDate today() {
-		return Instant.now().atOffset(ZoneOffset.UTC).toLocalDate();
+		return LocalDate.now();
 	}
 	
 	/**
@@ -69,8 +69,28 @@ public final class DateUtil {
 				&& (date.isBefore(endDate) || date.isEqual(endDate));
 	}
 	
-	public static boolean isInTheLastMonth(Instant timestamp) {
-		LocalDate date = timestamp.atOffset(ZoneOffset.UTC).toLocalDate();
+	/**
+	 * Check if a date is in the last month.
+	 * 
+	 * @param 	date
+	 * 			the {@link LocalDate LocalDate} to be checked.
+	 * @return
+	 * 			true if date in last month, false otherwise
+	 */
+	public static boolean isInTheLastMonth(LocalDate date) {
+		return isBetween(date, firstDayOfLastMonth(), lastDayOfLastMonth());
+	}
+	
+	/**
+	 * Overloaded method to check if a date is in the last month.
+	 * 
+	 * @param 	date
+	 * 			the {@link LocalDateTime LocalDateTime} to be checked.
+	 * @return
+	 * 			true if date in last month, false otherwise
+	 */
+	public static boolean isInTheLastMonth(LocalDateTime dateTime) {
+		LocalDate date = dateTime.toLocalDate();
 		return isBetween(date, firstDayOfLastMonth(), lastDayOfLastMonth());
 	}
 	
@@ -91,11 +111,26 @@ public final class DateUtil {
 	public static boolean isFromStartOfDayUntilNow(
 			Instant instant, Instant now) {
 		
-		LocalDateTime time = instant.atOffset(ZoneOffset.UTC).toLocalDateTime();
+		LocalDateTime time = getLocalDateTimeFromInstant(instant);
 		LocalDateTime startOfDay = time.toLocalDate().atStartOfDay();
 		LocalDateTime currentTime = now.atOffset(ZoneOffset.UTC).toLocalDateTime();
 		
 		return (time.isAfter(startOfDay) || time.isEqual(startOfDay))
 				&& (time.isBefore(currentTime) || time.isEqual(currentTime));
 	}
+	
+	/**
+	 * Converts an {@link Instant Instant} into a
+	 * {@link LocalDateTime LocalDateTime}
+	 * 
+	 * @param 	instant
+	 * 			an {@link Instant Instant} to be converted
+	 * @return
+	 * 			the converted {@link LocalDateTime LocalDateTime}
+	 */
+	public static LocalDateTime getLocalDateTimeFromInstant(Instant instant) {
+		return instant.atOffset(ZoneOffset.UTC).toLocalDateTime();
+	}
+	
+	
 }

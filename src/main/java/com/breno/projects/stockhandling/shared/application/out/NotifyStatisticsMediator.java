@@ -2,7 +2,7 @@ package com.breno.projects.stockhandling.shared.application.out;
 
 import org.springframework.stereotype.Component;
 
-import com.breno.projects.stockhandling.statistics.application.port.StockStatisticsData;
+import com.breno.projects.stockhandling.statistics.application.port.in.UpdateStockStatisticsCommand;
 import com.breno.projects.stockhandling.statistics.application.port.in.UpdateStockStatisticsUseCase;
 import com.breno.projects.stockhandling.stock.application.port.out.NotifyStatisticsMediatorPort;
 import com.breno.projects.stockhandling.stock.model.Stock;
@@ -26,8 +26,8 @@ public class NotifyStatisticsMediator implements NotifyStatisticsMediatorPort {
 
 	@Override
 	public void notify(Stock stock) {
-		StockStatisticsData updateCommand = 
-				StockStatisticsData.builder()
+		UpdateStockStatisticsCommand updateCommand = 
+				UpdateStockStatisticsCommand.builder()
 					.stockId(stock.getStockId())
 					.productId(stock.getProductId())
 					.timestamp(stock.getTimestamp())

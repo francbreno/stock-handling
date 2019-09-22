@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.breno.projects.stockhandling.statistics.adapter.in.api.response.GetStatisticsResponse;
 import com.breno.projects.stockhandling.statistics.application.port.in.LoadStatisticsQuery;
-import com.breno.projects.stockhandling.statistics.application.port.in.StatisticsRangeFilterType;
 import com.breno.projects.stockhandling.statistics.application.port.in.TopStatistics;
+import com.breno.projects.stockhandling.statistics.domain.StatisticsRangeFilterType;
 
 import lombok.RequiredArgsConstructor;
 

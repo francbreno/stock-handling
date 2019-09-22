@@ -7,6 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class represents the Stock Json data returned by the API.
+ * 
+ * @author breno
+ *
+ */
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder

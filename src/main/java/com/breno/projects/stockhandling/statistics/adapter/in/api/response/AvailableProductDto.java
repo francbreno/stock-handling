@@ -6,6 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class represents the availability of a product
+ * to be returned on the statistis end point.
+ * 
+ * @author breno
+ *
+ */
 @RequiredArgsConstructor
 @Builder
 @Getter

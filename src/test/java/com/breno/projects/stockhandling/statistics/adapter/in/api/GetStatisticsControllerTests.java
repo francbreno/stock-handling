@@ -1,7 +1,7 @@
 package com.breno.projects.stockhandling.statistics.adapter.in.api;
 
-import static com.breno.projects.stockhandling.statistics.application.port.in.StatisticsRangeFilterType.LAST_MONTH;
-import static com.breno.projects.stockhandling.statistics.application.port.in.StatisticsRangeFilterType.TODAY;
+import static com.breno.projects.stockhandling.statistics.domain.StatisticsRangeFilterType.LAST_MONTH;
+import static com.breno.projects.stockhandling.statistics.domain.StatisticsRangeFilterType.TODAY;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -22,9 +22,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.breno.projects.stockhandling.statistics.application.port.in.StatisticsRangeFilterType;
 import com.breno.projects.stockhandling.statistics.application.port.in.TopStatistics;
 import com.breno.projects.stockhandling.statistics.application.service.LoadStatisticsService;
+import com.breno.projects.stockhandling.statistics.domain.StatisticsRangeFilterType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ExtendWith(SpringExtension.class)

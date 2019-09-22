@@ -5,6 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Represents the selling data per product to be returned after
+ * an API call.
+ * 
+ * @author breno
+ *
+ */
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 @Builder

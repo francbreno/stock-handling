@@ -8,6 +8,14 @@ import com.breno.projects.stockhandling.statistics.adapter.in.api.response.Produ
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class represents a response object that aggregates
+ * a list of availability of products and a list of best
+ * selling products.
+ * 
+ * @author breno
+ *
+ */
 @RequiredArgsConstructor
 @Getter
 public class TopStatistics {

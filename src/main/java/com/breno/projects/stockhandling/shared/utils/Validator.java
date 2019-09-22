@@ -7,7 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * This class 
+ * This class represents a generic Validator Factory.
+ * 
+ * <p>WIP (not for production)
  * 
  * @author breno
  *
@@ -16,12 +18,16 @@ import lombok.NoArgsConstructor;
 public class Validator {
 
 	/**
+	 * A higher order method to return a lambda that execute a validation.
 	 * 
-	 * 
-	 * @param <T>
-	 * @param value
-	 * @param predicate
-	 * @param errorMessage
+	 * @param 	<T>
+	 * 			The Type of the value to be checked
+	 * @param 	value
+	 * 			The value to be cnhecked
+	 * @param 	predicate
+	 * 			The predicate to test against
+	 * @param 	errorMessage
+	 * 			An error message to be used as a description of the validation error. 
 	 */
 	public static <T, U> BiConsumer<T, U> createValidator(Predicate<T> predicate) {
 		return (value, errorMessage) -> {

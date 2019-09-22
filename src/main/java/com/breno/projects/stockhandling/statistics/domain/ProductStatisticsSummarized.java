@@ -1,4 +1,4 @@
-package com.breno.projects.stockhandling.statistics.application.port;
+package com.breno.projects.stockhandling.statistics.domain;
 
 import java.time.Instant;
 
@@ -9,10 +9,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Builder
 @Getter
-public class ProductStockStatisticsData {
+public class ProductStatisticsSummarized {
 	private final String productId;
-	private final Integer totalSales;
 	private final String stockId;
 	private final Instant timestamp;
 	private final Integer quantity;
+	private final Integer totalSales;
 }

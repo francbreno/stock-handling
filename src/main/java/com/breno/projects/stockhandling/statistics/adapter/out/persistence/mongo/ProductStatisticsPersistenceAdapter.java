@@ -4,66 +4,110 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.breno.projects.stockhandling.statistics.application.port.ProductStockStatisticsData;
-import com.breno.projects.stockhandling.statistics.application.port.StockStatisticsData;
+import com.breno.projects.stockhandling.statistics.application.port.out.LoadProductStatisticsPort;
 import com.breno.projects.stockhandling.statistics.application.port.out.LoadStatisticsPort;
 import com.breno.projects.stockhandling.statistics.application.port.out.UpdateStockStatisticsStatePort;
+import com.breno.projects.stockhandling.statistics.domain.ProductStatistics;
+import com.breno.projects.stockhandling.statistics.domain.StockEvent;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * This class represents a persistence adapter responsible for the
+ * data base operations over mongoDB
+ * 
+ * @author breno
+ *
+ */
 @Component
 @RequiredArgsConstructor
-public class ProductStatisticsPersistenceAdapter
-	implements UpdateStockStatisticsStatePort, LoadStatisticsPort {
+public class ProductStatisticsPersistenceAdapter implements UpdateStockStatisticsStatePort,
+	LoadStatisticsPort, LoadProductStatisticsPort {
 
 	private final ProductStatisticsRepository productsStatisticsRepository;
 
 	@Override
-	public void update(StockStatisticsData stockData) {
-		Objects.requireNonNull(stockData);
+	public void update(ProductStatistics productStatistics) {
+		Objects.requireNonNull(productStatistics);
 		
-		ProductStatisticsDocument productStatistics =
-				mapStockStatisticsDataToDocument(stockData);
+		ProductStatisticsDocument productStatisticsDocument =
+				mapProductStatisticsToDocument(productStatistics);
 		
-		productsStatisticsRepository.save(productStatistics);
+		productsStatisticsRepository.save(productStatisticsDocument);
 	}
 	
 	@Override
-	public List<ProductStockStatisticsData> loadStatistics() {
+	public List<ProductStatistics> loadStatistics() {
 		return productsStatisticsRepository.findAll()
 				.stream()
-				.map(this::mapDocumentToProductStockStatisticsData)
+				.map(this::mapDocumentToProductStockStatistics)
 				.collect(toList());
+	}	
+
+	@Override
+	public Optional<ProductStatistics> load(String productId) {
+		Optional<ProductStatisticsDocument> productStatisticsDocument =
+				productsStatisticsRepository.findById(productId);
+		
+		return productStatisticsDocument.map(p -> {
+			List<StockEvent> stockEvents =
+				p.getStockUpdateEvents().stream()
+					.map(e -> mapStockUpdateEventToStockEvent(e))
+					.collect(toList());
+			
+			return ProductStatistics.builder()
+					.productId(p.getId())
+					.stockEvents(stockEvents)
+					.build();
+		});
 	}
 
-	private ProductStatisticsDocument mapStockStatisticsDataToDocument(
-			StockStatisticsData stockData) {
+	private StockEvent mapStockUpdateEventToStockEvent(StockUpdateEvent event) {
+		return StockEvent.builder()
+			.stockId(event.getStockId())
+			.timestamp(event.getTimestamp())
+			.quantity(event.getQuantity())
+			.build();
+	}
 
-		ProductStockStatistics productStockStats =
-			ProductStockStatistics.builder()
-				.stockId(stockData.getStockId())
-				.timestamp(stockData.getTimestamp())
-				.quantity(stockData.getQuantity())
-				.build();
+	private ProductStatisticsDocument mapProductStatisticsToDocument(
+			ProductStatistics productStatistics) {
+		
+		List<StockUpdateEvent> stockUpdateEvent =
+				productStatistics.getStockEvents().stream()
+					.map(e -> mapStockEventToStockUpdateEvent(e))
+					.collect(toList());
 		
 		return ProductStatisticsDocument.builder()
-				.id(stockData.getProductId())
-				.stockStatistics(productStockStats)
+				.id(productStatistics.getProductId())
+				.stockUpdateEvents(stockUpdateEvent)
 				.build();
 	}
 	
-	private ProductStockStatisticsData mapDocumentToProductStockStatisticsData(
+	private StockUpdateEvent mapStockEventToStockUpdateEvent(StockEvent event) {
+		return StockUpdateEvent.builder()
+				.stockId(event.getStockId())
+				.timestamp(event.getTimestamp())
+				.quantity(event.getQuantity())
+				.build();
+	}
+
+	private ProductStatistics mapDocumentToProductStockStatistics(
 			ProductStatisticsDocument productStatistics) {
 		
-		return ProductStockStatisticsData.builder()
+		List<StockEvent> stockEvents =
+				productStatistics.getStockUpdateEvents()
+					.stream()
+					.map(e -> mapStockUpdateEventToStockEvent(e))
+					.collect(toList());
+			
+		return ProductStatistics.builder()
 				.productId(productStatistics.getId())
-				.stockId(productStatistics.getStockStatistics().getStockId())
-				.timestamp(productStatistics.getStockStatistics().getTimestamp())
-				.quantity(productStatistics.getStockStatistics().getQuantity())
-				.totalSales(productStatistics.getTotalSales())
+				.stockEvents(stockEvents)
 				.build();
 	}
 }
