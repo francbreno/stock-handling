@@ -2,6 +2,59 @@
 
 A simple product stocking control application made in *Java* using *Spring Boot*.
 
+## Basic Architecture
+
+I've decide to use some concepts from **DDD** and **Hexagonal Arcuitecture** to develop the application. It allows me to use the Inversion Control principle at the Architectural level. The benefits are:
+
+- It keeps you away from 
+- makes the use cases more explicit
+- Helps
+
+The main idea was to keep my application core isolated from frameworks code. I
+
+The source code is organized by feature as follows:
+
+```
+com
+    └── breno
+        └── projects
+            └── stockhandling
+                ├── DataLoader.java
+                ├── DemoApplication.java
+                ├── shared
+                │   ├── adapter
+                │   ├── application
+                │   └── utils
+                ├── statistics
+                │   ├── adapter
+                │   ├── application
+                │   └── domain
+                └── stock
+                    ├── adapter
+                    ├── application
+                    └── model
+```
+
+Each module has 3 packages:
+
+### model
+
+It's the domain model. Classes on this module keep the business rules related to each concept
+
+### application
+
+Above the domain model, the application is responsible for keeping the domain isolated from the outside world and coordinating the use cases execution.
+
+Outside world communication is granted though ports, interfaces that need to be implement as adapters.
+
+### adapter
+
+Adapters implement ports defined by the application. The injection of those objects is done by de IoC container.
+
+It's possible to have different adapters to the same port, which makes tests easier.
+
+**Spring** is responsible for wiring dependencies and **Spring Boot** is responsible for providing necessary configurations to make the app run.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
