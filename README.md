@@ -216,8 +216,8 @@ mvn clean test
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Junit Jupiter](https://github.com/junit-team/junit5/) - Use to execute *unit* and *integrations* tests
 * [Lombok](https://github.com/rzwitserloot/lombok/) - Used to reduce Java source code verbosity and eliminate boilerplate code
-* [H2Embedded MongoDB](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo/) - Use to store product stock statistics data
-* [](https://github.com/h2database/h2database/) - Used to keep product stock's last data
+* [Embedded MongoDB](https://github.com/flapdoodle-oss/de.flapdoodle.embed.mongo/) - Use to store product stock statistics data
+* [H2](https://github.com/h2database/h2database/) - Used to keep product stock's last data
 
 ## Authors
 
