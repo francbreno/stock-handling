@@ -119,7 +119,7 @@ Some classes represents just a way to transfer data from one layer to another. W
     └── Stock.java
 ```
 
-Following the *CQRS* pattern, this module separates *Commands*, operations that are task centric and change data, but return nothing, from *Queries*, operations for returning data, never changing. 
+Following the *CQRS* pattern, this module separates *Commands*, operations that are task centric and change data, but return nothing, from *Queries*, operations for returning data, but never changing them. 
 
 ### Statistics
 
