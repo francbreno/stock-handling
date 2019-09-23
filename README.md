@@ -221,7 +221,7 @@ mvn clean test
 
 ## Authors
 
-* **Breno Soares** - *Initial work* - [francbreno](https://github.com/francbreno)
+* **Breno Soares** - [francbreno](https://github.com/francbreno)
 
 ## License
 
